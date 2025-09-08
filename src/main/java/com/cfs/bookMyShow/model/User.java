@@ -2,14 +2,15 @@ package com.cfs.bookMyShow.model;
 
 import com.cfs.bookMyShow.model.type.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

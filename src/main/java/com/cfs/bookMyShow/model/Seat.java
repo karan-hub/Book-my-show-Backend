@@ -2,9 +2,7 @@ package com.cfs.bookMyShow.model;
 
 import com.cfs.bookMyShow.model.type.SeatType;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +10,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
