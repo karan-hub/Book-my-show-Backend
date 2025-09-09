@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TheaterRepository extends JpaRepository<Theater, Long> {
     List<Theater> findByCityName(String cityName);
-    List<Theater> findByAddress_PostalCode(String postalCode);
+    List<Theater> findByAddress_PinCode(String postalCode);
 }
