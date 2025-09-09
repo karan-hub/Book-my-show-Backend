@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="screens")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -42,4 +43,5 @@ public class Screen {
             orphanRemoval = true
     )
     private List<Show> shows = new ArrayList<>();
+
 }

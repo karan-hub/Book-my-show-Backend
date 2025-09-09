@@ -17,17 +17,32 @@ public class User {
     @Column(nullable = false)
     private Long id;
 
-    @Column(name = "name" , nullable = false)
+    @Column(
+            name = "name" ,
+            nullable = false
+    )
     private  String name;
 
-    @Column(name = "email" , nullable = false)
+    @Column(
+            name = "email" ,
+            nullable = false
+    )
     private String email;
 
-    @Column(name =  "role" , nullable = false)
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @Column(
+            name =  "role" ,
+            nullable = false
+    )
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(
+            mappedBy="user" ,
+            cascade = CascadeType.ALL
+    )
     private List<Booking> bookings;
 
 

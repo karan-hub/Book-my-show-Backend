@@ -20,18 +20,18 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(
-            name = "screen_id"
+            name = "screen_id",
+            nullable = false
     )
     private  Screen screen;
 
     @Column(nullable = false)
-    private  Long  seatNumber;
+    private  String  seatNumber;
 
     @Enumerated(EnumType.STRING)
     private SeatType seatType;
 
-
-    @ManyToMany(mappedBy = "seats")
-    private List<Booking> bookings = new ArrayList<>();
+    @Column(nullable = false)
+    private Double basePrice;
 
 }

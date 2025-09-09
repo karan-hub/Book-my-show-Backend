@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "shows")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Show {
@@ -19,9 +21,16 @@ public class Show {
     @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private LocalDateTime startTime;
+
+    @Column(nullable = false)
+    private LocalDateTime endTime;
+
     @ManyToOne
     @JoinColumn(
-            name = "movie_id"
+            name = "movie_id",
+            nullable = false
     )
     private Movie movie;
 
@@ -31,13 +40,18 @@ public class Show {
     )
     private  Screen screen;
 
-    @Column(nullable = false)
-    private LocalDateTime startTime;
+    @OneToMany(
+            mappedBy = "show",
+            cascade = CascadeType.ALL
+    )
+    private List<Booking> bookings;
 
-    @Column(nullable = false)
-    private LocalDateTime endTime;
+    @OneToMany(
+            mappedBy = "show",
+            cascade = CascadeType.ALL
+    )
+    private List<ShowSeat> showSeats;
 
-    @Column(name = "price")
-    private Long price;
+
 
 }
