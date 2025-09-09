@@ -22,11 +22,13 @@ public class Theater {
     private Long id;
 
     @Column(nullable = false)
-    private  String name;
-
-    @Column(nullable = false)
     @Embedded
     private Address address;
+    @Column(nullable = false)
+
+    private  String name;
+
+
 
     @ManyToOne
     @JoinColumn(

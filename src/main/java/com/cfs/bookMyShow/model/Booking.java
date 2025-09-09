@@ -42,7 +42,7 @@ public class Booking {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id")
+    @JoinColumn(name = "paymentId")
     private Payment payment;
 
 

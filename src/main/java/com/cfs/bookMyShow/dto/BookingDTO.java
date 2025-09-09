@@ -1,6 +1,7 @@
 package com.cfs.bookMyShow.dto;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
