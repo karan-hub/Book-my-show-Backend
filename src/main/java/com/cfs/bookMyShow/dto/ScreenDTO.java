@@ -6,5 +6,6 @@ import lombok.Data;
 public class ScreenDTO {
     private Long id;
     private String name;
-    private Long theaterId;  // ya TheaterDTO agar nested bhejna hai
+    private  TheaterDTO theater;
+
 }

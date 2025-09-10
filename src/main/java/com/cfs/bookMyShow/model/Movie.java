@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class Movie {
 
     @Column(name = "language" ,  nullable = false)
     private String language;
+
+    @Column( nullable = false)
+    private LocalTime Duration;
+
+    @Column(  nullable = false)
+    private String posterUrl;
 
     @Column(name = "genre" , nullable = false)
     private  String genre;

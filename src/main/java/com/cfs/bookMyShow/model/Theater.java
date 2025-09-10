@@ -27,6 +27,7 @@ public class Theater {
     @Column(nullable = false)
 
     private  String name;
+    private  Long totalScreens;
 
 
 

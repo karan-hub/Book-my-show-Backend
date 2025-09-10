@@ -1,6 +1,6 @@
 package com.cfs.bookMyShow.model.type;
 
-public enum Status {
+public enum BookingStatus {
     CONFIRM,
     CANCEL,
     PENDING

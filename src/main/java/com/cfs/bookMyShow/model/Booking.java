@@ -1,7 +1,6 @@
 package com.cfs.bookMyShow.model;
 
-import com.cfs.bookMyShow.model.type.SeatType;
-import com.cfs.bookMyShow.model.type.Status;
+import com.cfs.bookMyShow.model.type.BookingStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,13 +22,15 @@ public class Booking {
     @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private UUID bookingNumber;
 
     @Column(nullable = false)
     private LocalDateTime bookingTime;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private BookingStatus status;
 
     @Column(nullable = false)
     private Double totalAmount;

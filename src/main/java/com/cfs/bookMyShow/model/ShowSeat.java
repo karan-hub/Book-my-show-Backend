@@ -1,5 +1,7 @@
 package com.cfs.bookMyShow.model;
 
+import com.cfs.bookMyShow.model.type.BookingStatus;
+import com.cfs.bookMyShow.model.type.SeatStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +21,7 @@ public class ShowSeat {
     private Long id;
 
     @Column(nullable = false)
-    private String status;
+    private SeatStatus status;
 
     @Column(nullable = false)
     private Double price;
@@ -43,5 +45,8 @@ public class ShowSeat {
             name = "booking_id"
     )
     private Booking booking;
+
+    @Version
+    private Integer version;
 
 }

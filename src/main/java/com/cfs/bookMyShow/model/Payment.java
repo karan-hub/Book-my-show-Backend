@@ -28,7 +28,13 @@ public class Payment {
     private String transactionId;
 
     @Column(nullable = false)
-    private  Long    amount ;
+    private  Double    amount ;
+
+    @Column(nullable = false)
+    private  Double    GST ;
+
+    @Column(nullable = false)
+    private  Double    totalAmount ;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
