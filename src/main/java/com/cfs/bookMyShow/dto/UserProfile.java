@@ -1,14 +1,12 @@
 package com.cfs.bookMyShow.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Data
-public class UserDTO {
+public class UserProfile {
     private Long id;
     private String name;
-    private String number;
     private String email;
+    private String number;
+    private  String role;
 }

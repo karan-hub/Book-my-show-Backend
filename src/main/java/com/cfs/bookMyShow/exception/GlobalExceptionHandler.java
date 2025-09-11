@@ -19,6 +19,17 @@ public class GlobalExceptionHandler     {
         this.userRepository = userRepository;
     }
 
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ApiErrorResponse>  userException(UserAlreadyExistsException  exception , WebRequest request){
+        ApiErrorResponse response =  new ApiErrorResponse(
+                HttpStatus.ALREADY_REPORTED.value(),
+                exception.getMessage(),
+                request.getDescription(false),
+                LocalDateTime.now()
+        );
+        return  new ResponseEntity<>( response , HttpStatus.ALREADY_REPORTED);
+    }
     @ExceptionHandler(SeatNotAvailableException.class)
     public  ResponseEntity<ApiErrorResponse> seatNotAvailableHandler(SeatNotAvailableException exception , WebRequest request){
         ApiErrorResponse response =  new ApiErrorResponse(
@@ -27,7 +38,6 @@ public class GlobalExceptionHandler     {
                 request.getDescription(false),
                 LocalDateTime.now()
         );
-        System.out.println("\n\n\n\n\nSeatNotAvailableException \n\n\n\n");
         return  new ResponseEntity<>( response , HttpStatus.NOT_FOUND);
     }
 

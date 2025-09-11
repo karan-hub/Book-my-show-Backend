@@ -100,7 +100,7 @@ public class BookingService {
         booking.setShowSeats(showSeats);
         booking.setUser(user);
         booking.setTotalAmount(finalAmount);
-        booking.setBookingNumber("BM"+user.getId()+System.currentTimeMillis());
+        booking.setBookingNumber("BM"+user.getId()+System.currentTimeMillis()% 100000);
 
         Booking saveBooking = bookingRepository.save(booking);
         showSeats.forEach(
@@ -119,6 +119,7 @@ public class BookingService {
         userDTO.setId(booking.getUser().getId());
         userDTO.setName(booking.getUser().getName());
         userDTO.setEmail(booking.getUser().getEmail());
+        userDTO.setNumber(booking.getUser().getPhoneNumber());
 
         ShowDTO showDTO = new ShowDTO();
         Show show = booking.getShow();
@@ -160,7 +161,6 @@ public class BookingService {
         bookingDTO.setUser(userDTO);
         bookingDTO.setShow(showDTO);
         bookingDTO.setMovie(movieDto);
-        bookingDTO.setActualAmount((double) Math.round((actualAmount *100.0)/100));
 
         TheaterDTO theaterDto=new TheaterDTO();
         theaterDto.setId(bookingDTO.getShow().getScreenId());

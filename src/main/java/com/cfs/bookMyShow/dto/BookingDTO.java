@@ -15,8 +15,6 @@ public class BookingDTO {
     private LocalDateTime bookingTime;
     private String status;
     private Double totalAmount;
-    private  Double GST;
-    private Double actualAmount;
     private PaymentDTO payment;
     private UserDTO user;
     private ShowDTO show;
