@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,7 +22,7 @@ public class Booking {
     private Long id;
 
     @Column(nullable = false)
-    private UUID bookingNumber;
+    private String bookingNumber;
 
     @Column(nullable = false)
     private LocalDateTime bookingTime;

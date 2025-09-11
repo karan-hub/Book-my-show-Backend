@@ -8,7 +8,6 @@ import java.time.LocalTime;
 public class MovieDTO {
     private Long id;
     private String title;
-    private String description;
     private LocalTime duration;
     private String language;
     private String genre;

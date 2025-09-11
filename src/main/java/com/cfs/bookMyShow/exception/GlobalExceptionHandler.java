@@ -27,6 +27,7 @@ public class GlobalExceptionHandler     {
                 request.getDescription(false),
                 LocalDateTime.now()
         );
+        System.out.println("\n\n\n\n\nSeatNotAvailableException \n\n\n\n");
         return  new ResponseEntity<>( response , HttpStatus.NOT_FOUND);
     }
 

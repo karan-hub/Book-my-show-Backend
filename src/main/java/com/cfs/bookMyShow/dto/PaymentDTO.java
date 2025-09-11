@@ -8,9 +8,11 @@ import java.util.UUID;
 
 @Data
 public class PaymentDTO {
-    private UUID bookingId;
+    private String bookingId;
     private String transactionId;
-    private Double amount;
+    private  Double GST;
+    private Double actualAmount;
+    private Double finalAmount;
     private LocalDateTime paymentTime;
     private String paymentMethod;
     private BookingStatus status;

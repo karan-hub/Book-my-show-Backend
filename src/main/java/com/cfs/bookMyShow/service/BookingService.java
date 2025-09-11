@@ -8,20 +8,18 @@ import com.cfs.bookMyShow.model.*;
 import com.cfs.bookMyShow.model.type.BookingStatus;
 import com.cfs.bookMyShow.model.type.PaymentStatus;
 import com.cfs.bookMyShow.model.type.SeatStatus;
-import com.cfs.bookMyShow.repository.BookingRepository;
-import com.cfs.bookMyShow.repository.ShowRepository;
-import com.cfs.bookMyShow.repository.ShowSeatRepository;
-import com.cfs.bookMyShow.repository.UserRepository;
+import com.cfs.bookMyShow.repository.*;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +37,9 @@ public class BookingService {
     @Autowired
     private  final BookingRepository  bookingRepository ;
 
+    @Autowired
+    private  final PaymentRepository paymentRepository ;
+
     @Value("${app.gst.rate}")
     private   Double GST;
 
@@ -53,47 +54,43 @@ public class BookingService {
         Show show =  showRepository.findById(dto.getShowId())
                 .orElseThrow(()-> new ShowNotFoundException("SHOW NOT FOUND"));
 
-//        List<ShowSeat> showSeats =  showSeatRepository.findAllById(dto.getSeatIds());
-        List<ShowSeat> showSeats = showSeatRepository.findSeatsForUpdate(dto.getShowId(), dto.getSeatIds());
-
-
-//      List<Seat> seats =   showSeats.stream()
-//                .filter(seat -> !"AVAILABLE".equals(seat.getBookingStatus()))
-//                .findAny()
-//                .ifPresent(seat -> {
-//                    throw new SeatNotAvailableException(
-//                            "Seat " + seat.getSeat().getId() + " is not available"
-//                    );
-//                });
-
+//        List<ShowSeat> Seats =  showSeatRepository.findAllById(dto.getSeatIds());
+        List<ShowSeat> showSeats = showSeatRepository.findByShowIdAndSeatIdIn(dto.getShowId(), dto.getSeatIds());
+        if (showSeats.isEmpty())  throw new SeatNotAvailableException("THE SEATS IS EMPTY");
+        System.out.println("ENTER \n\n\n");
         showSeats.forEach(
                 seat-> {
                     if (seat.getStatus() != SeatStatus.AVAILABLE)
                         throw new SeatNotAvailableException(
                                 "Seat " + seat.getSeat().getId() + " is not available"
                         );
+                    System.out.println(seat.getPrice() +" THIS THIS THIS" + seat);
                     seat.setStatus(SeatStatus.LOCKED);
                 }
         );
-        showSeatRepository.saveAll(showSeats);
-        Double amount =  showSeats.stream()
+
+
+
+ java.lang.Double  amount =  showSeats.stream()
                 .mapToDouble(
                         ShowSeat::getPrice
                 ).sum();
 
 
+        System.out.println( "payment boss "+amount);
         Double finalAmount = amount * (1 + GST / 100);
 
 
         Payment payment = new Payment();
         payment.setStatus(PaymentStatus.SUCCESS);
         payment.setPaymentTime(LocalDateTime.now());
-        payment.setPaymentMethod("Gpay");
-        payment.setTransactionId(UUID.randomUUID().toString());
+        payment.setPaymentMethod(dto.getPaymentMethod());
+        String txnId = "TXN-" + user.getId() + "-" + System.currentTimeMillis();
+        payment.setTransactionId(txnId);
         payment.setAmount(amount);
         payment.setGST(GST);
         payment.setTotalAmount(finalAmount);
-
+        paymentRepository.save(payment);
         Booking  booking = new Booking();
 
         booking.setBookingTime(LocalDateTime.now());
@@ -103,7 +100,7 @@ public class BookingService {
         booking.setShowSeats(showSeats);
         booking.setUser(user);
         booking.setTotalAmount(finalAmount);
-        booking.setBookingNumber(UUID.randomUUID());
+        booking.setBookingNumber("BM"+user.getId()+System.currentTimeMillis());
 
         Booking saveBooking = bookingRepository.save(booking);
         showSeats.forEach(
@@ -113,12 +110,11 @@ public class BookingService {
                 }
         );
         showSeatRepository.saveAll(showSeats);
-
-
         return mapToDto(saveBooking, showSeats);
     }
 
     private BookingDTO mapToDto(Booking booking , List<ShowSeat> showSeats ) {
+
         UserDTO userDTO =  new UserDTO();
         userDTO.setId(booking.getUser().getId());
         userDTO.setName(booking.getUser().getName());
@@ -135,6 +131,7 @@ public class BookingService {
         showDto.setId(booking.getShow().getId());
         showDto.setStartTime(booking.getShow().getStartTime());
         showDto.setEndTime(booking.getShow().getEndTime());
+        showDTO.setMovieId(booking.getShow().getMovie().getId());
 
         MovieDTO movieDto = new MovieDTO();
         Movie movie=booking.getShow().getMovie();
@@ -148,16 +145,22 @@ public class BookingService {
         ScreenDTO screenDto=new ScreenDTO();
         screenDto.setId(booking.getShow().getScreen().getId());
         screenDto.setName(booking.getShow().getScreen().getName());
-
         showDTO.setScreenId(screenDto.getId());
+
+
+        Double actualAmount = booking.getTotalAmount() * 1.0 / 1.18;
+        System.out.println(actualAmount);
+
 
         BookingDTO  bookingDTO =  new BookingDTO();
         bookingDTO.setBookingNumber(booking.getBookingNumber());
         bookingDTO.setBookingTime(booking.getBookingTime());
-        booking.setStatus(booking.getStatus());
-        bookingDTO.setTotalAmount(booking.getTotalAmount());
+       bookingDTO.setStatus(String.valueOf(booking.getPayment().getStatus()));
+        bookingDTO.setTotalAmount(Math.round(booking.getTotalAmount()*100.0)/100.0);
         bookingDTO.setUser(userDTO);
         bookingDTO.setShow(showDTO);
+        bookingDTO.setMovie(movieDto);
+        bookingDTO.setActualAmount((double) Math.round((actualAmount *100.0)/100));
 
         TheaterDTO theaterDto=new TheaterDTO();
         theaterDto.setId(bookingDTO.getShow().getScreenId());
@@ -192,7 +195,9 @@ public class BookingService {
             paymentDTO.setStatus(booking.getStatus());
             paymentDTO.setPaymentTime(booking.getPayment().getPaymentTime());
             paymentDTO.setTransactionId(booking.getPayment().getTransactionId());
-            paymentDTO.setAmount(booking.getTotalAmount());
+            paymentDTO.setActualAmount((double) Math.round((actualAmount *100.0)/100));
+            paymentDTO.setGST(18.0);
+            paymentDTO.setFinalAmount(Math.round(booking.getTotalAmount()*100.0)/100.0);
             bookingDTO.setPayment(paymentDTO);
         }
 

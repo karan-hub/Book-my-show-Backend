@@ -50,4 +50,5 @@ public class ShowSeat {
     @Version
     private Integer version;
 
+
 }

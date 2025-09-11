@@ -14,7 +14,10 @@ import java.util.List;
 @Repository
 public interface ShowSeatRepository extends JpaRepository<ShowSeat, Long> {
     List<ShowSeat> findByShowId(Long movieId);
+//    List<ShowSeat> findByShowIdAndStatus(Long showId, SeatStatus status);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<ShowSeat> findByShowIdAndStatus(Long showId, SeatStatus status);
+
     List<ShowSeat> findByShowIdAndSeatIdIn(Long showId, List<Long> seatIds);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
