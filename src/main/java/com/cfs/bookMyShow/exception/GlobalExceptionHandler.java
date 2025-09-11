@@ -20,10 +20,10 @@ public class GlobalExceptionHandler     {
     }
 
     @ExceptionHandler(SeatNotAvailableException.class)
-    public  ResponseEntity<ApiErrorResponse> seatNotAvailableHandler(SeatNotAvailableException exception , WebRequest){
+    public  ResponseEntity<ApiErrorResponse> seatNotAvailableHandler(SeatNotAvailableException exception , WebRequest request){
         ApiErrorResponse response =  new ApiErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
-                e.getMessage(),
+                exception.getMessage(),
                 request.getDescription(false),
                 LocalDateTime.now()
         );

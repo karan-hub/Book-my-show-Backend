@@ -14,6 +14,7 @@ import com.cfs.bookMyShow.repository.ShowSeatRepository;
 import com.cfs.bookMyShow.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookingService {
 
     @Autowired
@@ -39,7 +40,8 @@ public class BookingService {
     private  final BookingRepository  bookingRepository ;
 
     @Value("${app.gst.rate}")
-    private final double GST;
+    private   Double GST;
+
 
 
     @Transactional

@@ -21,6 +21,7 @@ public class ShowSeat {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private SeatStatus status;
 
     @Column(nullable = false)

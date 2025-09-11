@@ -1,6 +1,7 @@
 package com.cfs.bookMyShow.repository;
 
 import com.cfs.bookMyShow.model.ShowSeat;
+import com.cfs.bookMyShow.model.type.SeatStatus;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ShowSeatRepository extends JpaRepository<ShowSeat, Long> {
     List<ShowSeat> findByShowId(Long movieId);
-    List<ShowSeat> findByShowIdAndStatus(Long showId, String status);
+    List<ShowSeat> findByShowIdAndStatus(Long showId, SeatStatus status);
     List<ShowSeat> findByShowIdAndSeatIdIn(Long showId, List<Long> seatIds);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
