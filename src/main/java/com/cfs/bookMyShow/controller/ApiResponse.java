@@ -12,5 +12,4 @@ public class ApiResponse<T> {
     private LocalDateTime localDateTime;
     private HttpStatus status;
     private  T data;
-
 }
