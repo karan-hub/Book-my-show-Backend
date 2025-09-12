@@ -1,10 +1,8 @@
-package com.cfs.bookMyShow.service;
+package com.cfs.bookMyShow.controller;
 
-import com.cfs.bookMyShow.controller.ApiResponse;
 import com.cfs.bookMyShow.dto.UserDTO;
 import com.cfs.bookMyShow.dto.UserProfile;
-import com.cfs.bookMyShow.exception.ApiErrorResponse;
-import com.cfs.bookMyShow.repository.UserRepository;
+import com.cfs.bookMyShow.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
