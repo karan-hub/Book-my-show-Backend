@@ -1,6 +1,9 @@
 package com.cfs.bookMyShow.model;
 
 import com.cfs.bookMyShow.model.type.Address;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,20 +24,19 @@ public class Theater {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    @Embedded
-    private Address address;
-    @Column(nullable = false)
+//    @Column(nullable = false)
+//    @Embedded
+//    private Address address;
+//    @Column(nullable = false)
 
     private  String name;
     private  Long totalScreens;
-
-
 
     @ManyToOne
     @JoinColumn(
             name = "city_id"
     )
+    @JsonIgnore
     private  City city;
 
     @OneToMany(
@@ -42,5 +44,6 @@ public class Theater {
             orphanRemoval = true ,
             cascade = CascadeType.ALL
     )
-    private List<Screen > screen  = new ArrayList<>();
+    @JsonManagedReference
+    private List<Screen > screens  = new ArrayList<>();
 }

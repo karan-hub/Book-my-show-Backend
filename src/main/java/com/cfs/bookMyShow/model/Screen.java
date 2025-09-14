@@ -1,5 +1,6 @@
 package com.cfs.bookMyShow.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Screen {
     @JoinColumn(
             name = "theater_id"
     )
+    @JsonBackReference
     private  Theater theater;
 
     @OneToMany(

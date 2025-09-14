@@ -1,5 +1,6 @@
 package com.cfs.bookMyShow.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class City {
             orphanRemoval = true,
             cascade = CascadeType.ALL
     )
+    @JsonManagedReference
     private List<Theater> theaters = new ArrayList<>();
 
 }

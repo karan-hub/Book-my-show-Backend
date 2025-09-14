@@ -162,12 +162,14 @@ public class BookingService {
         bookingDTO.setShow(showDTO);
         bookingDTO.setMovie(movieDto);
 
+        CityDTO cityDTO = new CityDTO();
+        cityDTO.setName("pune");
+
         TheaterDTO theaterDto=new TheaterDTO();
         theaterDto.setId(bookingDTO.getShow().getScreenId());
         Theater  theater = booking.getShow().getScreen().getTheater();
         theaterDto.setName(theater.getName());
-        theaterDto.setAddress(theater.getAddress());
-        theaterDto.setCityName(theater.getCity());
+        theaterDto.setCity(cityDTO);
         theaterDto.setTotalScreens(theater.getTotalScreens());
 
         screenDto.setTheater(theaterDto);
