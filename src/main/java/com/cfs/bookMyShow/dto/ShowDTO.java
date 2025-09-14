@@ -11,4 +11,6 @@ public class ShowDTO {
     private Long screenId;
     private LocalDateTime startTime;  // ISO String format: 2025-09-09T18:30
     private LocalDateTime endTime;
+    private String movieName;
+    private String screenName;
 }
