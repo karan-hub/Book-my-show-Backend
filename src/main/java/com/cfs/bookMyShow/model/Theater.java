@@ -32,6 +32,8 @@ public class Theater {
     private  String name;
     private  Long totalScreens;
 
+    private  String cityName ;
+
     @ManyToOne
     @JoinColumn(
             name = "city_id"

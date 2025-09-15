@@ -113,6 +113,11 @@ public class BookingService {
         return mapToDto(saveBooking, showSeats);
     }
 
+    public  List<String> getAllBookingNumbers(){
+        List<String> bookings =  bookingRepository.findAllBookingNumbers();
+        return  bookings;
+    }
+
     private BookingDTO mapToDto(Booking booking , List<ShowSeat> showSeats ) {
 
         UserDTO userDTO =  new UserDTO();
@@ -209,5 +214,5 @@ public class BookingService {
         return bookingDTO;
     }
 
-
 }
+

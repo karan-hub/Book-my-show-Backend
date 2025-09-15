@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
 
 public abstract class Response {
+
     protected  <T> ResponseEntity<ApiResponse> buildResponse(HttpStatus status , T body){
         ApiResponse<T> response = new ApiResponse<>(
           LocalDateTime.now(),

@@ -2,18 +2,14 @@ package com.cfs.bookMyShow.controller;
 
 import com.cfs.bookMyShow.dto.BookingDTO;
 import com.cfs.bookMyShow.dto.RequestBookingDTO;
-import com.cfs.bookMyShow.exception.ApiErrorResponse;
-import com.cfs.bookMyShow.model.Booking;
 import com.cfs.bookMyShow.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequestMapping("/api/booking")
 @RestController
@@ -31,6 +27,11 @@ public class BookingController {
         return ResponseEntity.status(status).body(response);
     }
 
+    @GetMapping("/numbers")
+    public ResponseEntity<ApiResponse<List<String>>> getAllBookingNumbers() {
+        List<String> bookingNumbers = bookingService.getAllBookingNumbers();
+        return buildResponse(HttpStatus.FOUND , bookingNumbers);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<BookingDTO>> createBooking(@RequestBody RequestBookingDTO dto){
