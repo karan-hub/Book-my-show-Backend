@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RequestMapping("/api/booking")
+@RequestMapping("/booking")
 @RestController
 @RequiredArgsConstructor
 public class BookingController {

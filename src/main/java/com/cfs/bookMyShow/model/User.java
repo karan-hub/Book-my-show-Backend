@@ -3,7 +3,10 @@ package com.cfs.bookMyShow.model;
 import com.cfs.bookMyShow.model.type.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -11,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -23,14 +26,20 @@ public class User {
     )
     private  String name;
 
+    @Column(unique = true)
+    private  String  username;
+
+    @Column(unique = true)
+    private String password;
+
+    @Column(nullable = false)
+    private String phoneNumber;
+
     @Column(
             name = "email" ,
             nullable = false
     )
     private String email;
-
-    @Column(nullable = false)
-    private String phoneNumber;
 
     @Column(
             name =  "role" ,
@@ -46,4 +55,8 @@ public class User {
     private List<Booking> bookings;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
 }
