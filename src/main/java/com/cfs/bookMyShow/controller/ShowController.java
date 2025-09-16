@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/show")
+@RequestMapping("/show")
 public class ShowController {
 
     private final ShowService showService;

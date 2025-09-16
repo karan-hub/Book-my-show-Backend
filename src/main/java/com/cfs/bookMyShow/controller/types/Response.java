@@ -1,6 +1,5 @@
-package com.cfs.bookMyShow.controller;
+package com.cfs.bookMyShow.controller.types;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

@@ -1,5 +1,6 @@
 package com.cfs.bookMyShow.controller;
 
+import com.cfs.bookMyShow.controller.types.ApiResponse;
 import com.cfs.bookMyShow.dto.BookingDTO;
 import com.cfs.bookMyShow.dto.RequestBookingDTO;
 import com.cfs.bookMyShow.service.BookingService;

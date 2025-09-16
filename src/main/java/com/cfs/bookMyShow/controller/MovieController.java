@@ -1,5 +1,7 @@
 package com.cfs.bookMyShow.controller;
 
+import com.cfs.bookMyShow.controller.types.ApiResponse;
+import com.cfs.bookMyShow.controller.types.Response;
 import com.cfs.bookMyShow.dto.MovieDTO;
 import com.cfs.bookMyShow.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/movie")
 @RequiredArgsConstructor
-public class MovieController extends  Response {
+public class MovieController extends Response {
 
     @Autowired
     private  final MovieService  service;

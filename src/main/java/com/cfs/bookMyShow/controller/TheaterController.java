@@ -1,5 +1,7 @@
 package com.cfs.bookMyShow.controller;
 
+import com.cfs.bookMyShow.controller.types.ApiResponse;
+import com.cfs.bookMyShow.controller.types.Response;
 import com.cfs.bookMyShow.dto.TheaterDTO;
 import com.cfs.bookMyShow.service.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/theater")
-public class TheaterController  extends  Response {
+@RequestMapping("/theater")
+public class TheaterController  extends Response {
 
     @Autowired
     private TheaterService theaterService;

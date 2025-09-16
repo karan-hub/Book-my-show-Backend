@@ -1,4 +1,4 @@
-package com.cfs.bookMyShow.controller;
+package com.cfs.bookMyShow.controller.types;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

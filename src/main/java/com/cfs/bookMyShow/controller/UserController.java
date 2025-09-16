@@ -1,5 +1,6 @@
 package com.cfs.bookMyShow.controller;
 
+import com.cfs.bookMyShow.controller.types.ApiResponse;
 import com.cfs.bookMyShow.dto.UserDTO;
 import com.cfs.bookMyShow.dto.UserProfile;
 import com.cfs.bookMyShow.service.UserService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
