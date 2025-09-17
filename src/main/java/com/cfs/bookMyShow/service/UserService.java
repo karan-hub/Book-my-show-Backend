@@ -9,7 +9,9 @@ import com.cfs.bookMyShow.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +37,12 @@ public class UserService {
         return  mapToDto(user);
     }
 
+    public List<UserProfile> allUsers(){
+        return  userRepository.findAll()
+                .stream()
+                .map(this::mapToDto).toList();
+    }
+
     private UserProfile mapToDto(User user) {
         UserProfile profile = new UserProfile();
         profile.setNumber(user.getPhoneNumber());
@@ -44,6 +52,8 @@ public class UserService {
         profile.setId(user.getId());
         return  profile;
     }
+
+
 
 
 }
