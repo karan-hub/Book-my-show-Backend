@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class LoginResponseDto {
     private  String  jwt;
     private  String  userId;
+    private  String username;
 
 
 }

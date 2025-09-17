@@ -8,6 +8,7 @@ import com.cfs.bookMyShow.exception.NotFoundException;
 import com.cfs.bookMyShow.model.User;
 import com.cfs.bookMyShow.model.type.Role;
 import com.cfs.bookMyShow.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
@@ -24,14 +25,13 @@ import org.yaml.snakeyaml.util.ArrayUtils;
 @Service
 public class AuthService {
 
+
     private  final AuthenticationManager authenticationManager;
     private  final AuthUtil authUtil;
 
-    @Autowired
-    private UserRepository userRepository ;
+    private final UserRepository userRepository ;
 
-    @Autowired
-    private PasswordEncoder encoder;
+    private final  PasswordEncoder encoder;
 
     public  LoginResponseDto login(LoginRequestDto request) {
         Authentication  authentication= authenticationManager.authenticate(
@@ -40,7 +40,7 @@ public class AuthService {
         User  user = (User) authentication.getPrincipal();
         String  token =authUtil.generateAccessToken(user);
 
-        return  new LoginResponseDto(token, user.getId().toString());
+        return  new LoginResponseDto(token, user.getId().toString() , user.getUsername());
     }
 
 
@@ -63,6 +63,9 @@ public class AuthService {
 
 
     }
+
+
+
 }
 
 
